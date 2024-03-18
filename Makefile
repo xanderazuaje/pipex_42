@@ -10,6 +10,14 @@ LIBFT_DIR := $(LIB_DIR)/libft
 
 # Source files
 SRC_FILES := $(SRC_DIR)/main.c \
+	$(SRC_DIR)/start_with.c \
+	$(SRC_DIR)/free_splitted.c \
+	$(SRC_DIR)/assign_in_out_file.c \
+	$(SRC_DIR)/find_path.c \
+	$(SRC_DIR)/is_path.c \
+	$(SRC_DIR)/free_pipes.c \
+	$(SRC_DIR)/check_input.c \
+	$(SRC_DIR)/init_pipes.c \
 
 # Object files
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
