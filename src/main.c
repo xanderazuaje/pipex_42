@@ -1,48 +1,38 @@
 #include "pipex.h"
 
+void close_pipes(int argc, int **pipes)
+{
+    int i = 0;
+    while(i < argc - 1){
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+        i++;
+    }
+}
 
-int main(const int argc, char **argv, char **env) {
+int main(int argc, char **argv, char **env) {
     int i;
     t_cp cp;
     t_splitted *prg_args;
-    int **fd;
+    int id;
 
-    if(!check_input(argc, argv, &cp, &fd))
+    if(!check_input(argc, argv, &cp))
         return (0);
-    if(!init_pipes(argc, fd))
+    if(!init_pipes(argc, cp.pipes))
         return (0);
     i = FIRST_PROGRAM;
     while (i < argc - 1) {
-        prg_args = ft_split(argv[i], ' ');
-        cp.path = find_path(prg_args->string[0], env);
-        if (!cp.path) {
-            i++;
+        if(!set_path(&prg_args, argv[i], &cp, env) && i++)
             continue;
-        }
-        int id = fork();
-
-        if (id == 0) {
-            if (i == FIRST_PROGRAM)
-                dup2(cp.infile, STDIN_FILENO);
-            else
-                dup2(fd[i - 1][0], STDIN_FILENO);
-            close(cp.infile);
-            close(fd[i - 1][1]);
-            close(fd[i - 1][0]);
-            if (i == argc - 2)
-                dup2(cp.outfile, STDOUT_FILENO);
-            else
-                dup2(fd[i][1], STDOUT_FILENO);
-            close(fd[i][1]);
-            close(fd[i][0]);
-            close(cp.outfile);
-            execve(cp.path, prg_args->string, env);
-            exit(1);
-        }
+        id = fork();
+        if (id == 0)
+            child_process(i, &cp, prg_args, env, argc);
         free_splitted(&prg_args);
         free(cp.path);
         i++;
     }
-    wait(NULL);
-    free_pipes(&i, fd);
+    close_pipes(argc, cp.pipes);
+    while(argc-- - 2 > 1)
+        wait(NULL);
+    free_pipes(&i, cp.pipes);
 }

@@ -46,6 +46,9 @@ SOURCE = ft_isalpha\
 	ft_lstmap\
 	ft_lstnew\
 	len_to_char\
+	get-next-line/get_next_line\
+	get-next-line/get_next_line_utils\
+
 
 
 OBJS = $(SOURCE:=.o)
