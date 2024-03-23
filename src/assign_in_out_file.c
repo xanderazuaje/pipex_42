@@ -4,7 +4,6 @@ int assign_in_out_file(t_cp *cp, char **argv, int argc) {
     int pipe_fd[2];
     char *last_line;
 
-    cp->in_write_fd = -1;
     if(ft_strncmp(argv[1], "here_doc", 9) == 0)
     {
         if(pipe(pipe_fd) == -1)
