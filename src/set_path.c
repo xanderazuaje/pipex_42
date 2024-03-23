@@ -9,7 +9,6 @@ int set_path(t_splitted **prg_args, char *arg, t_cp *cp, char **env){
     if (!cp->path) {
         ft_putstr_fd(*(*prg_args)->string, 1);
         ft_putstr_fd(": command not found\n", 1);
-        free_splitted(prg_args);
         return (0);
     }
     return (1);

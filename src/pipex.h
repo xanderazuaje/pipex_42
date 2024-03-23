@@ -1,7 +1,3 @@
-//
-// Created by xander on 1/21/24.
-//
-
 #ifndef PIPEX_H
 #define PIPEX_H
 

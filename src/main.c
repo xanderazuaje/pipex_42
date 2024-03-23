@@ -23,7 +23,15 @@ int main(int argc, char **argv, char **env) {
     i = FIRST_PROGRAM;
     while (i < argc - 1) {
         if(!set_path(&prg_args, argv[i], &cp, env) && i++)
+        {
+            close(cp.pipe[RD_PIPE]);
+            close(cp.pipe[WR_PIPE]);
+            close(cp.prev_pipe);
+            pipe(cp.pipe);
+            close(cp.pipe[WR_PIPE]);
+            cp.prev_pipe = cp.pipe[RD_PIPE];
             continue;
+        }
         pipe(cp.pipe);
         id[i - 2] = fork();
         if (id[i - 2] == 0)
@@ -43,6 +51,5 @@ int main(int argc, char **argv, char **env) {
     {
         state = waitpid(-1, NULL, 0);
     }
-    sleep(300);
     free(id);
 }
