@@ -29,4 +29,5 @@ int assign_in_out_file(t_cp *cp, char **argv, int argc);
 int check_input(int argc, char** argv, t_cp *cp);
 int set_path(t_splitted **prg_args, char *arg, t_cp *cp, char **env);
 void child_process(int i, t_cp *cp, char **env, int argc);
+void pipex(int argc, char **env, int i, int *id, t_cp *cp);
 #endif //PIPEX_H
