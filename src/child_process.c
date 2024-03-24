@@ -1,7 +1,7 @@
 #include "pipex.h"
 
-void child_process(int i, t_cp *cp, t_splitted *prg_args, char **env, int argc){
-    if (i == FIRST_PROGRAM)
+void child_process(int i, t_cp *cp, char **env, int argc){
+    if (i == cp->count)
     {
         dup2(cp->infile, STDIN_FILENO);
         close(cp->infile);
@@ -20,6 +20,6 @@ void child_process(int i, t_cp *cp, t_splitted *prg_args, char **env, int argc){
         dup2(cp->outfile, STDOUT_FILENO);
         close(cp->outfile);
     }
-    execve(cp->path, prg_args->string, env);
+    execve(cp->path, cp->prg_args->string, env);
     exit(1);
 }
