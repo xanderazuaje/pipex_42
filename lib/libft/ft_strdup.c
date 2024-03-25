@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s1)
 	new = malloc(len + 1);
 	if (new == 0)
 		return (0);
-    ft_memcpy(new, s1, len);
+	ft_memcpy(new, s1, len);
 	new[len] = 0;
 	return (new);
 }

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   is_path.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/13 17:42:30 by xazuaje-          #+#    #+#             */
+/*   Updated: 2024/03/13 17:42:30 by xazuaje-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
-int is_path(const char *str) {
-    return start_with(str, "./") ||
-           start_with(str, "../") ||
-           start_with(str, "/");
+int	is_path(const char *str)
+{
+	return (start_with(str, "./") || start_with(str, "../") || start_with(str,
+			"/"));
 }
