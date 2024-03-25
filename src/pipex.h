@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 05:34:34 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 04:40:02 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/03/25 04:47:13 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ int				check_input(int argc, char **argv, t_cp *cp);
 int				set_path(t_splitted **prg_args, char *arg, t_cp *cp,
 					char **env);
 void			child_process(int i, t_cp *cp, char **env, int argc);
-void			pipex(int argc, char **env, int i, int *id, t_cp *cp);
+void			pipex(int argc, char **env, int i, t_cp *cp);
 #endif

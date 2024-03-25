@@ -40,10 +40,8 @@ static int	get_first_command(char **argv)
 void	iterate_pipes(int argc, char *const *argv, char **env, t_cp *cp)
 {
 	int	i;
-	int	*id;
 
 	i = (*cp).count;
-	id = (int *)malloc(sizeof(int) * (argc - (*cp).count));
 	while (i < argc - 1)
 	{
 		if (!set_path(&(*cp).prg_args, argv[i], cp, env) && i++)
@@ -51,10 +49,9 @@ void	iterate_pipes(int argc, char *const *argv, char **env, t_cp *cp)
 			reset_pipes(cp);
 			continue ;
 		}
-		pipex(argc, env, i, id, cp);
+		pipex(argc, env, i, cp);
 		i++;
 	}
-	free(id);
 }
 
 int	main(int argc, char **argv, char **env)
