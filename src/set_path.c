@@ -6,13 +6,10 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:43:29 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/23 19:43:29 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/03/26 01:42:26 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by xander on 3/18/24.
-//
 #include "pipex.h"
 
 int	set_path(t_splitted **prg_args, char *arg, t_cp *cp, char **env)

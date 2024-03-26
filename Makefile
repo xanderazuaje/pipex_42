@@ -50,6 +50,11 @@ fclean: clean libft_fclean
 
 re: fclean all
 
+bonus:: CFLAGS += -D BONUS=1
+bonus: re
+
+rebonus: fclean bonus
+
 # Build rule
 $(TARGET): $(OBJ_FILES)
 	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)

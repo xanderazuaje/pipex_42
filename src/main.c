@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 04:40:56 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 04:40:56 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/03/26 03:26:01 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	finish_pipes(t_cp *cp)
 
 static int	get_first_command(char **argv)
 {
-	if (ft_strncmp("here_doc", argv[2], 9))
+	if (ft_strncmp("here_doc", argv[1], 8) == 0)
 		return (3);
 	return (2);
 }
@@ -59,6 +59,8 @@ int	main(int argc, char **argv, char **env)
 	t_cp	cp;
 	int		state;
 
+	if (!BONUS && argc != 5)
+		return (ft_putstr_fd("Program must have 4 parameters", 2), 0);
 	if (!check_input(argc, argv, &cp))
 		return (0);
 	cp.count = get_first_command(argv);

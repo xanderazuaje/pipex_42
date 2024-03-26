@@ -6,14 +6,16 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 05:34:34 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 04:47:13 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/03/26 02:31:05 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# define FIRST_PROGRAM 2
+# ifndef BONUS
+#  define BONUS 0
+# endif
 # define WR_PIPE 1
 # define RD_PIPE 0
 
