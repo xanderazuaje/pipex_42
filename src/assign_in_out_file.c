@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:54:49 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 03:54:59 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/03/26 13:54:29 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	here_doc(char **argv, t_cp *cp)
 
 int	assign_in_out_file(t_cp *cp, char **argv, int argc)
 {
-	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
+	if (BONUS && ft_strncmp(argv[1], "here_doc", 9) == 0 && argc > 5)
 	{
 		if (!here_doc(argv, cp))
 			return (0);
