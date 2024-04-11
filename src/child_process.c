@@ -14,6 +14,7 @@
 
 void	first_process(int pipes[3][2], char *arg, char **env)
 {
+
 	t_splitted	*args;
 	char		*path;
 
@@ -28,7 +29,6 @@ void	first_process(int pipes[3][2], char *arg, char **env)
 	close(pipes[FILES][INFILE]);
 	dup2(pipes[CURR_PIPE][WR_PIPE], STDOUT_FILENO);
 	close(pipes[CURR_PIPE][WR_PIPE]);
-	close(pipes[CURR_PIPE][RD_PIPE]);
 	execve(path, args->string, env);
 	exit(0);
 }
@@ -48,10 +48,8 @@ void	middle_process(int pipes[3][2], char *arg, char **env)
 	path = get_path(args->string[0], env);
 	dup2(pipes[PREV_PIPE][RD_PIPE], STDIN_FILENO);
 	close(pipes[PREV_PIPE][RD_PIPE]);
-	close(pipes[PREV_PIPE][WR_PIPE]);
 	dup2(pipes[CURR_PIPE][WR_PIPE], STDOUT_FILENO);
 	close(pipes[CURR_PIPE][WR_PIPE]);
-	close(pipes[CURR_PIPE][RD_PIPE]);
 	execve(path, args->string, env);
 	exit(0);
 }

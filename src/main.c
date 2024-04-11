@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 04:40:56 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/11 14:47:52 by xander           ###   ########.fr       */
+/*   Updated: 2024/04/11 16:06:38 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	iterate_pipes(int argc, char **argv, char **env)
 		}
 		pipe_fd[PREV_PIPE][RD_PIPE] = pipe_fd[CURR_PIPE][RD_PIPE];
 		pipe_fd[PREV_PIPE][WR_PIPE] = pipe_fd[CURR_PIPE][WR_PIPE];
+		close(pipe_fd[PREV_PIPE][WR_PIPE]);
 		i++;
 	}
 }
