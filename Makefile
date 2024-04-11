@@ -1,6 +1,6 @@
 # Compiler and flags
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -g3 #-fsanitize=address,undefined,leak
+CFLAGS := -Wall -Wextra -Werror -g3 -fsanitize=address,undefined,leak
 
 # Directories
 SRC_DIR := src
@@ -15,10 +15,8 @@ SRC_FILES := $(SRC_DIR)/main.c \
 	$(SRC_DIR)/assign_in_out_file.c \
 	$(SRC_DIR)/find_path.c \
 	$(SRC_DIR)/is_path.c \
-	$(SRC_DIR)/check_input.c \
-	$(SRC_DIR)/set_path.c \
+	$(SRC_DIR)/get_path.c \
 	$(SRC_DIR)/child_process.c \
-	$(SRC_DIR)/pipex.c \
 
 # Object files
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))

@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 04:21:04 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 04:21:04 by xazuaje-         ###   ########.fr       */
+/*   Created: 2024/03/23 19:43:29 by xazuaje-          #+#    #+#             */
+/*   Updated: 2024/04/07 22:38:04 by xazuaje-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	check_input(const int argc, char **argv, t_cp *cp)
+char	*get_path(char *arg, char **env)
 {
-	if (argc < 5)
-		return (ft_putstr_fd("not enough params\n", 1), 0);
-	if (!assign_in_out_file(cp, argv, argc))
-		return (perror("error"), 0);
-	return (1);
+	char		*path;
+
+	path = find_path(arg, env);
+	if (!path)
+	{
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
+	return path;
 }

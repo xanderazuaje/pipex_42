@@ -6,34 +6,72 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:55:26 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/26 01:45:36 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:42:55 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_process(int i, t_cp *cp, char **env, int argc)
+void	first_process(int pipes[3][2], char *arg, char **env)
 {
-	if (i == cp->count)
+	t_splitted	*args;
+	char		*path;
+
+	args = ft_split(arg, ' ');
+	if(!args)
 	{
-		dup2(cp->infile, STDIN_FILENO);
-		close(cp->infile);
+		perror("error");
+		exit(1);
 	}
-	else
+	path = get_path(args->string[0], env);
+	dup2(pipes[FILES][INFILE], STDIN_FILENO);
+	close(pipes[FILES][INFILE]);
+	dup2(pipes[CURR_PIPE][WR_PIPE], STDOUT_FILENO);
+	close(pipes[CURR_PIPE][WR_PIPE]);
+	close(pipes[CURR_PIPE][RD_PIPE]);
+	execve(path, args->string, env);
+	exit(0);
+}
+
+
+void	middle_process(int pipes[3][2], char *arg, char **env)
+{
+	t_splitted	*args;
+	char		*path;
+
+	args = ft_split(arg, ' ');
+	if(!args)
 	{
-		dup2(cp->prev_pipe, STDIN_FILENO);
-		close(cp->prev_pipe);
+		perror("error");
+		exit(1);
 	}
-	if (i != argc - 2)
+	path = get_path(args->string[0], env);
+	dup2(pipes[PREV_PIPE][RD_PIPE], STDIN_FILENO);
+	close(pipes[PREV_PIPE][RD_PIPE]);
+	close(pipes[PREV_PIPE][WR_PIPE]);
+	dup2(pipes[CURR_PIPE][WR_PIPE], STDOUT_FILENO);
+	close(pipes[CURR_PIPE][WR_PIPE]);
+	close(pipes[CURR_PIPE][RD_PIPE]);
+	execve(path, args->string, env);
+	exit(0);
+}
+
+void	last_process(int pipes[3][2], char *arg, char **env)
+{
+	t_splitted	*args;
+	char		*path;
+
+	args = ft_split(arg, ' ');
+	if(!args)
 	{
-		dup2(cp->pipe[WR_PIPE], STDOUT_FILENO);
-		close(cp->pipe[WR_PIPE]);
+		perror("error");
+		exit(1);
 	}
-	else
-	{
-		dup2(cp->outfile, STDOUT_FILENO);
-		close(cp->outfile);
-	}
-	execve(cp->path, cp->prg_args->string, env);
-	exit(1);
+	path = get_path(args->string[0], env);
+	dup2(pipes[PREV_PIPE][RD_PIPE], STDIN_FILENO);
+	close(pipes[PREV_PIPE][RD_PIPE]);
+	dup2(pipes[FILES][OUTFILE], STDOUT_FILENO);
+	close(pipes[FILES][OUTFILE]);
+	execve(path, args->string, env);
+	exit(0);
 }

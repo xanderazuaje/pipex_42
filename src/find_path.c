@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:03:50 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/03/25 04:29:07 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/04/09 01:12:50 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ char	*find_path(const char *program, char **env)
 {
 	t_splitted	*routes;
 
-	routes = NULL;
 	if (!program)
 		return (NULL);
 	if (is_path(program))
