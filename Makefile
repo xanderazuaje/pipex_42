@@ -14,7 +14,6 @@ SRC_FILES := $(SRC_DIR)/main.c \
 	$(SRC_DIR)/free_splitted.c \
 	$(SRC_DIR)/assign_in_out_file.c \
 	$(SRC_DIR)/find_path.c \
-	$(SRC_DIR)/is_path.c \
 	$(SRC_DIR)/get_path.c \
 	$(SRC_DIR)/child_process.c \
 

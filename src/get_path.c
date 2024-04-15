@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:43:29 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/07 22:38:04 by xazuaje-         ###   ########.fr       */
+/*   Updated: 2024/04/15 04:15:37 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*get_path(char *arg, char **env)
 {
 	char		*path;
 
+	if (!arg)
+		return (ft_strdup(""));
 	path = find_path(arg, env);
 	if (!path)
 	{
@@ -23,5 +25,5 @@ char	*get_path(char *arg, char **env)
 		ft_putstr_fd(": command not found\n", 2);
 		exit(127);
 	}
-	return path;
+	return (path);
 }

@@ -33,19 +33,19 @@ static void	listen_input(const int *pipe_fd, char *limit)
 	}
 }
 
-int	here_doc(char **argv, int pipes[3][2])
+void	here_doc(char **argv)
 {
 	int		pipe_fd[2];
 	char	*limit;
 
 	limit = ft_strjoin(argv[2], "\n");
 	if (!limit)
-		return (0);
+		return ;
 	if (pipe(pipe_fd) == -1)
-		return (0);
-	pipes[FILES][RD_PIPE] = pipe_fd[0];
+		return ;
 	listen_input(pipe_fd, limit);
-	return (1);
+	if (dup2(pipe_fd[RD_PIPE], STDIN_FILENO) == -1)
+		perror("here document");
 }
 /*
 void	assign_in_out_file(t_cp *cp, char **argv, int argc)
