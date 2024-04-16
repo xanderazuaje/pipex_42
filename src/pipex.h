@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 05:34:34 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/16 04:34:09 by xander           ###   ########.fr       */
+/*   Updated: 2024/04/16 04:48:18 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	last_process_hd(int pipes[3][2], char *arg, char **env, char *outfile);
 void	middle_process(int pipes[3][2], char *argv, char **env);
 void	first_process(int pipes[3][2], char *arg, char **env, char *infile);
 void	last_process(int pipes[3][2], char *arg, char **env, char *outfile);
+void	exit_error(int pipes[3][2], char *file);
 #endif

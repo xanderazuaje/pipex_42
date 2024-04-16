@@ -12,14 +12,6 @@
 
 #include "pipex.h"
 
-static void	exit_error(int pipes[3][2], char *file)
-{
-	perror(file);
-	close(pipes[CURR_PIPE][WR_PIPE]);
-	close(pipes[CURR_PIPE][RD_PIPE]);
-	exit(0);
-}
-
 void	first_process_hd(int pipes[3][2], char *arg, char **env)
 {
 	t_splitted	*args;

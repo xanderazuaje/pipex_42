@@ -16,6 +16,7 @@ SRC_FILES := $(SRC_DIR)/main.c \
 	$(SRC_DIR)/find_path.c \
 	$(SRC_DIR)/get_path.c \
 	$(SRC_DIR)/child_process.c \
+	$(SRC_DIR)/exit_error.c \
 
 # Object files
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_FILES))
