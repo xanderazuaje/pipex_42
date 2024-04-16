@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 04:40:56 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/15 04:15:04 by xander           ###   ########.fr       */
+/*   Updated: 2024/04/16 04:34:32 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_count(char **argv)
 
 static void	iterate_pipes(int argc, char **argv, char **env, int count)
 {
-	int	pipe_fd[3][2];
+	int	fds[3][2];
 	int	id;
 	int	i;
 
@@ -29,27 +29,27 @@ static void	iterate_pipes(int argc, char **argv, char **env, int count)
 	while (i < argc - 1)
 	{
 		if (i != argc - 2)
-			pipe(pipe_fd[CURR_PIPE]);
+			pipe(fds[CURR_PIPE]);
 		id = fork();
 		if (id == 0)
 		{
 			if (i == count)
-				first_process(pipe_fd, argv[i], env, argv[count - 1]);
+				first_process(fds, argv[i], env, argv[count - 1]);
 			else if (i == argc - 2)
-				last_process(pipe_fd, argv[i], env, argv[argc - 1]);
+				last_process(fds, argv[i], env, argv[argc - 1]);
 			else
-				middle_process(pipe_fd, argv[i], env);
+				middle_process(fds, argv[i], env);
 		}
-		close(pipe_fd[CURR_PIPE][WR_PIPE]);
-		pipe_fd[PREV_PIPE][RD_PIPE] = pipe_fd[CURR_PIPE][RD_PIPE];
+		close(fds[CURR_PIPE][WR_PIPE]);
+		fds[PREV_PIPE][RD_PIPE] = fds[CURR_PIPE][RD_PIPE];
 		i++;
 	}
-	close(pipe_fd[PREV_PIPE][RD_PIPE]);
+	close(fds[PREV_PIPE][RD_PIPE]);
 }
 
 static void	heredoc_iterate_pipes(int argc, char **argv, char **env, int count)
 {
-	int	pipe_fd[3][2];
+	int	fds[3][2];
 	int	id;
 	int	i;
 
@@ -57,22 +57,22 @@ static void	heredoc_iterate_pipes(int argc, char **argv, char **env, int count)
 	while (i < argc - 1)
 	{
 		if (i != argc - 2)
-			pipe(pipe_fd[CURR_PIPE]);
+			pipe(fds[CURR_PIPE]);
 		id = fork();
 		if (id == 0)
 		{
 			if (i == count)
-				first_process_heredoc(pipe_fd, argv[i], env);
+				first_process_hd(fds, argv[i], env);
 			else if (i == argc - 2)
-				last_process(pipe_fd, argv[i], env, argv[argc - 1]);
+				last_process_hd(fds, argv[i], env, argv[argc - 1]);
 			else
-				middle_process(pipe_fd, argv[i], env);
+				middle_process(fds, argv[i], env);
 		}
-		close(pipe_fd[CURR_PIPE][WR_PIPE]);
-		pipe_fd[PREV_PIPE][RD_PIPE] = pipe_fd[CURR_PIPE][RD_PIPE];
+		close(fds[CURR_PIPE][WR_PIPE]);
+		fds[PREV_PIPE][RD_PIPE] = fds[CURR_PIPE][RD_PIPE];
 		i++;
 	}
-	close(pipe_fd[PREV_PIPE][RD_PIPE]);
+	close(fds[PREV_PIPE][RD_PIPE]);
 }
 
 int	main(int argc, char **argv, char **env)

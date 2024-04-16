@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:55:26 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/15 01:04:41 by xander           ###   ########.fr       */
+/*   Updated: 2024/04/16 04:33:59 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	exit_error(int pipes[3][2], char *file)
 {
+	perror(file);
 	close(pipes[CURR_PIPE][WR_PIPE]);
 	close(pipes[CURR_PIPE][RD_PIPE]);
-	perror(file);
 	exit(0);
 }
 
-void	first_process_heredoc(int pipes[3][2], char *arg, char **env)
+void	first_process_hd(int pipes[3][2], char *arg, char **env)
 {
 	t_splitted	*args;
 	char		*path;
@@ -93,6 +93,30 @@ void	last_process(int pipes[3][2], char *arg, char **env, char *outfile)
 	char		*path;
 
 	pipes[FILES][OUTFILE] = open(outfile, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (pipes[FILES][OUTFILE] == -1)
+		exit_error(pipes, outfile);
+	args = ft_split(arg, ' ');
+	if (!args)
+	{
+		perror("error");
+		exit(1);
+	}
+	path = get_path(args->string[0], env);
+	dup2(pipes[PREV_PIPE][RD_PIPE], STDIN_FILENO);
+	close(pipes[PREV_PIPE][RD_PIPE]);
+	dup2(pipes[FILES][OUTFILE], STDOUT_FILENO);
+	close(pipes[FILES][OUTFILE]);
+	execve(path, args->string, env);
+	perror(path);
+	exit(0);
+}
+
+void	last_process_hd(int pipes[3][2], char *arg, char **env, char *outfile)
+{
+	t_splitted	*args;
+	char		*path;
+
+	pipes[FILES][OUTFILE] = open(outfile, O_RDWR | O_CREAT | O_APPEND, 0644);
 	if (pipes[FILES][OUTFILE] == -1)
 		exit_error(pipes, outfile);
 	args = ft_split(arg, ' ');

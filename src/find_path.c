@@ -6,7 +6,7 @@
 /*   By: xazuaje- <xazuaje-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 03:03:50 by xazuaje-          #+#    #+#             */
-/*   Updated: 2024/04/14 14:24:35 by xander           ###   ########.fr       */
+/*   Updated: 2024/04/16 00:32:18 by xander           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ char	*get_path_route(const char *program, t_splitted **routes)
 		i++;
 	}
 	free_splitted(routes);
-	perror(program);
-	exit(0);
+	return (NULL);
 }
 
 char	*find_path(const char *program, char **env)
@@ -48,6 +47,7 @@ char	*find_path(const char *program, char **env)
 
 	if (!program)
 		return (NULL);
+	routes = NULL;
 	if (ft_strchr(program, '/') != NULL)
 		return (ft_strdup(program));
 	while (*env)
